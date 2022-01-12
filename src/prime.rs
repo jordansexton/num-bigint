@@ -4,7 +4,7 @@
 use byteorder::{BigEndian, ByteOrder};
 use integer::Integer;
 use num_traits::{FromPrimitive, One, ToPrimitive, Zero};
-use rand::rngs::StdRng;
+use rand::rngs::SmallRng;
 use rand::SeedableRng;
 
 use crate::algorithms::jacobi;
@@ -200,7 +200,7 @@ pub fn probably_prime_miller_rabin(n: &BigUint, reps: usize, force2: bool) -> bo
     );
     let mut seed = [0u8; 32];
     seed[0..8].copy_from_slice(&seed_vec[..]);
-    let mut rng = StdRng::from_seed(seed);
+    let mut rng = SmallRng::from_seed(seed);
 
     'nextrandom: for i in 0..reps {
         let x = if i == reps - 1 && force2 {

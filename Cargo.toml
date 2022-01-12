@@ -82,5 +82,5 @@ std = [
     "serde/std"
 ]
 u64_digit = []
-prime = ["rand/std_rng"]
+prime = ["rand/small_rng"]
 nightly = []
