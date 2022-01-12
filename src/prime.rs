@@ -13,11 +13,6 @@ use crate::bigrand::RandBigInt;
 use crate::Sign::Plus;
 use crate::{BigInt, BigUint, IntoBigUint};
 
-pub(crate) const BIG_1: BigUint = BigUint::one();
-pub(crate) const BIG_2: BigUint = BigUint::from(2u64);
-pub(crate) const BIG_3: BigUint = BigUint::from(3u64);
-pub(crate) const BIG_64: BigUint = BigUint::from(64u64);
-
 const PRIMES_A: u64 = 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 37;
 const PRIMES_B: u64 = 29 * 31 * 41 * 43 * 47 * 53;
 
@@ -58,6 +53,8 @@ const PRIME_BIT_MASK: u64 = 1 << 2
 ///
 /// This is a port of `ProbablyPrime` from the go std lib.
 pub fn probably_prime(x: &BigUint, n: usize) -> bool {
+    let BIG_64 = BigUint::from(64u64);
+
     if x.is_zero() {
         return false;
     }
@@ -109,6 +106,9 @@ const INCR_LIMIT: usize = 0x10000;
 
 /// Calculate the next larger prime, given a starting number `n`.
 pub fn next_prime(n: &BigUint) -> BigUint {
+    let BIG_1 = BigUint::one();
+    let BIG_2 = BigUint::from(2u64);
+
     if n < &BIG_2 {
         return 2u32.into_biguint().unwrap();
     }
@@ -181,6 +181,10 @@ pub fn next_prime(n: &BigUint) -> BigUint {
 ///
 /// See Handbook of Applied Cryptography, p. 139, Algorithm 4.24.
 pub fn probably_prime_miller_rabin(n: &BigUint, reps: usize, force2: bool) -> bool {
+    let BIG_1 = BigUint::one();
+    let BIG_2 = BigUint::from(2u64);
+    let BIG_3 = BigUint::from(3u64);
+
     // println!("miller-rabin: {}", n);
     let nm1 = n - &BIG_1;
     // determine q, k such that nm1 = q << k
@@ -251,6 +255,9 @@ pub fn probably_prime_miller_rabin(n: &BigUint, reps: usize, force2: bool) -> bo
 /// Crandall and Pomerance, Prime Numbers: A Computational Perspective, 2nd ed.
 /// Springer, 2005.
 pub fn probably_prime_lucas(n: &BigUint) -> bool {
+    let BIG_1 = BigUint::one();
+    let BIG_2 = BigUint::from(2u64);
+
     // println!("lucas: {}", n);
     // Discard 0, 1.
     if n.is_zero() || n.is_one() {

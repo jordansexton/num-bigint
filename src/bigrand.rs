@@ -295,16 +295,15 @@ pub trait RandPrime {
 #[cfg(feature = "prime")]
 const SMALL_PRIMES: [u8; 15] = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53];
 
-/// The product of the values in SMALL_PRIMES and allows us
-/// to reduce a candidate prime by this number and then determine whether it's
-/// coprime to all the elements of SMALL_PRIMES without further BigUint
-/// operations.
-#[cfg(feature = "prime")]
-const SMALL_PRIMES_PRODUCT: BigUint = BigUint::from(16_294_579_238_595_022_365u64);
-
 #[cfg(feature = "prime")]
 impl<R: Rng + ?Sized> RandPrime for R {
     fn gen_prime(&mut self, bit_size: usize) -> BigUint {
+        /// The product of the values in SMALL_PRIMES and allows us
+        /// to reduce a candidate prime by this number and then determine whether it's
+        /// coprime to all the elements of SMALL_PRIMES without further BigUint
+        /// operations.
+        let SMALL_PRIMES_PRODUCT = BigUint::from(16_294_579_238_595_022_365u64);
+
         if bit_size < 2 {
             panic!("prime size must be at least 2-bit");
         }
