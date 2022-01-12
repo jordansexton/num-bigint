@@ -14,9 +14,9 @@ use crate::Sign::Plus;
 use crate::{BigInt, BigUint, IntoBigUint};
 
 pub(crate) const BIG_1: BigUint = BigUint::one();
-pub(crate) const BIG_2: BigUint = BigUint::from_u64(2).unwrap();
-pub(crate) const BIG_3: BigUint = BigUint::from_u64(3).unwrap();
-pub(crate) const BIG_64: BigUint = BigUint::from_u64(64).unwrap();
+pub(crate) const BIG_2: BigUint = BigUint::from(2u64);
+pub(crate) const BIG_3: BigUint = BigUint::from(3u64);
+pub(crate) const BIG_64: BigUint = BigUint::from(64u64);
 
 const PRIMES_A: u64 = 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 37;
 const PRIMES_B: u64 = 29 * 31 * 41 * 43 * 47 * 53;

@@ -300,7 +300,7 @@ const SMALL_PRIMES: [u8; 15] = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
 /// coprime to all the elements of SMALL_PRIMES without further BigUint
 /// operations.
 #[cfg(feature = "prime")]
-const SMALL_PRIMES_PRODUCT: BigUint = BigUint::from_u64(16_294_579_238_595_022_365).unwrap();
+const SMALL_PRIMES_PRODUCT: BigUint = BigUint::from(16_294_579_238_595_022_365u64);
 
 #[cfg(feature = "prime")]
 impl<R: Rng + ?Sized> RandPrime for R {
