@@ -341,7 +341,7 @@ impl<R: Rng + ?Sized> RandPrime for R {
 
             let mut p = BigUint::from_bytes_be(&bytes);
             // must always be a u64, as the SMALL_PRIMES_PRODUCT is a u64
-            let rem = (&p % &*SMALL_PRIMES_PRODUCT).to_u64().unwrap();
+            let rem = (&p % &SMALL_PRIMES_PRODUCT).to_u64().unwrap();
 
             'next: for delta in range_step(0, 1 << 20, 2) {
                 let m = rem + delta;

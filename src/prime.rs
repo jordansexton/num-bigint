@@ -62,7 +62,7 @@ pub fn probably_prime(x: &BigUint, n: usize) -> bool {
         return false;
     }
 
-    if x < &*BIG_64 {
+    if x < &BIG_64 {
         return (PRIME_BIT_MASK & (1 << x.to_u64().unwrap())) != 0;
     }
 
@@ -109,15 +109,15 @@ const INCR_LIMIT: usize = 0x10000;
 
 /// Calculate the next larger prime, given a starting number `n`.
 pub fn next_prime(n: &BigUint) -> BigUint {
-    if n < &*BIG_2 {
+    if n < &BIG_2 {
         return 2u32.into_biguint().unwrap();
     }
 
     // We want something larger than our current number.
-    let mut res = n + &*BIG_1;
+    let mut res = n + &BIG_1;
 
     // Ensure we are odd.
-    res |= &*BIG_1;
+    res |= &BIG_1;
 
     // Handle values up to 7.
     if let Some(val) = res.to_u64() {
@@ -182,11 +182,11 @@ pub fn next_prime(n: &BigUint) -> BigUint {
 /// See Handbook of Applied Cryptography, p. 139, Algorithm 4.24.
 pub fn probably_prime_miller_rabin(n: &BigUint, reps: usize, force2: bool) -> bool {
     // println!("miller-rabin: {}", n);
-    let nm1 = n - &*BIG_1;
+    let nm1 = n - &BIG_1;
     // determine q, k such that nm1 = q << k
     let k = nm1.trailing_zeros().unwrap() as usize;
     let q = &nm1 >> k;
-    let nm3 = n - &*BIG_3;
+    let nm3 = n - &BIG_3;
 
     let mut seed_vec = vec![0u8; 8];
     BigEndian::write_uint(
@@ -202,7 +202,7 @@ pub fn probably_prime_miller_rabin(n: &BigUint, reps: usize, force2: bool) -> bo
         let x = if i == reps - 1 && force2 {
             BIG_2.clone()
         } else {
-            rng.gen_biguint_below(&nm3) + &*BIG_2
+            rng.gen_biguint_below(&nm3) + &BIG_2
         };
 
         let mut y = x.modpow(&q, n);
@@ -211,7 +211,7 @@ pub fn probably_prime_miller_rabin(n: &BigUint, reps: usize, force2: bool) -> bo
         }
 
         for _ in 1..k {
-            y = y.modpow(&*BIG_2, n);
+            y = y.modpow(&BIG_2, n);
             if y == nm1 {
                 break 'nextrandom;
             }
@@ -317,10 +317,10 @@ pub fn probably_prime_lucas(n: &BigUint) -> bool {
     // We know gcd(n, 2) = 1 because n is odd.
     //
     // Arrange s = (n - Jacobi(Δ, n)) / 2^r = (n+1) / 2^r.
-    let mut s = n + &*BIG_1;
+    let mut s = n + &BIG_1;
     let r = s.trailing_zeros().unwrap() as usize;
     s = &s >> r;
-    let nm2 = n - &*BIG_2; // n - 2
+    let nm2 = n - &BIG_2; // n - 2
 
     // We apply the "almost extra strong" test, which checks the above conditions
     // except for U_s ≡ 0 mod n, which allows us to avoid computing any U_k values.
@@ -410,7 +410,7 @@ pub fn probably_prime_lucas(n: &BigUint) -> bool {
 
         // k' = 2k
         // V(k') = V(2k) = V(k)² - 2
-        let t1 = (&vk * &vk) - &*BIG_2;
+        let t1 = (&vk * &vk) - &BIG_2;
         vk = &t1 % n;
     }
 
