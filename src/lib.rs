@@ -129,10 +129,6 @@ extern crate zeroize;
 #[macro_use]
 extern crate smallvec;
 
-#[cfg(feature = "prime")]
-#[macro_use]
-extern crate lazy_static;
-
 extern crate num_integer as integer;
 extern crate num_iter;
 extern crate num_traits;
