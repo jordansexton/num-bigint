@@ -192,15 +192,7 @@ pub fn probably_prime_miller_rabin(n: &BigUint, reps: usize, force2: bool) -> bo
     let q = &nm1 >> k;
     let nm3 = n - &BIG_3;
 
-    let mut seed_vec = vec![0u8; 8];
-    BigEndian::write_uint(
-        seed_vec.as_mut_slice(),
-        n.get_limb(0) as u64,
-        big_digit::BITS / 8,
-    );
-    let mut seed = [0u8; 32];
-    seed[0..8].copy_from_slice(&seed_vec[..]);
-    let mut rng = SmallRng::from_seed(seed);
+    let mut rng = SmallRng::seed_from_u64(n.get_limb(0) as u64);
 
     'nextrandom: for i in 0..reps {
         let x = if i == reps - 1 && force2 {
