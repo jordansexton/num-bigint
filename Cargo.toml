@@ -79,7 +79,6 @@ std = [
     "num-integer/std",
     "num-traits/std",
     "smallvec/write",
-    "rand/std",
     "serde/std"
 ]
 u64_digit = []
